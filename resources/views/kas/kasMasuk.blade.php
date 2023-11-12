@@ -6,6 +6,7 @@ Input Kas Masuk
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
+
         <!-- Card -->
         <div class="card card-default">
             <div class="card-header">
@@ -41,7 +42,7 @@ Input Kas Masuk
                                 <select class="form-control select2bs4" style="width: 100%;" name="donatur">
                                     <option value="">Nama Donatur</option>
                                     @foreach ($nama as $nama)
-                                    <option value="{{ $nama->name }}">{{ $nama->name }} - {{ $nama->house_block }}/{{ $nama->house_number }}</option>
+                                    <option value="{{ $nama->id_warga }}">{{ $nama->id_warga }} - {{ $nama->name }} - {{ $nama->house_block }}/{{ $nama->house_number }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -49,6 +50,7 @@ Input Kas Masuk
                                 <label>Kategori Kas</label>
                                 <input type="hidden" name="transaction_id">
                                 <input type="hidden" name="subtransaction_id">
+                                <input type="hidden" name="cash_in_date">
                                 <input type="hidden" name="user_input" value="{{ auth()->user()->name }}">
                                 <select class="form-control select2bs4" style="width: 100%;" name="cash_in_category" id="optionSelect" onchange="changeOptionSelect()">
                                     <option value="">Kategori Kas</option>
@@ -71,11 +73,11 @@ Input Kas Masuk
                             </div> -->
                             <div class="form-group">
                                 <label>Nominal</label>
-                                <input type="number" class="form-control" name="amount"   placeholder="Rp. -">
+                                <input type="number" class="form-control" name="amount" placeholder="Rp. -">
                             </div>
                             <div class="form-group Iuran" hidden>
                                 <label>Total</label>
-                                <input type="number" class="form-control" id="result" placeholder="Rp. -"  readonly>
+                                <input type="number" class="form-control" id="result" placeholder="Rp. -" readonly>
                             </div>
                             <div class="form-group Iuran" hidden>
                                 <label>Tahun</label>

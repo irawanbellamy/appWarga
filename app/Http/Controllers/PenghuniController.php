@@ -42,7 +42,11 @@ class PenghuniController extends Controller
             'house_number'      => 'required',
         ]);
 
+        $blok = $request['house_block'];
+        $nomor = $request['house_number'];
+
         $input = ([
+            'id_warga'          => "TC3" . $blok . $nomor,
             'name'              => $request['name'],
             'house_block'       => $request['house_block'],
             'house_number'      => $request['house_number'],

@@ -17,6 +17,7 @@ class KasMasuk extends Model
         'cash_in_methode',
         'amount',
         'total_amount',
+        'cash_in_date',
         'cash_in_month',
         'cash_in_year',
         'cash_in_attachment',

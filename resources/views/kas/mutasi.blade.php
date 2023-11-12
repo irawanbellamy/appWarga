@@ -30,57 +30,46 @@ Mutasi Kas
                     </ul>
                 </div>
                 @endif
-                <form action="#" method="post" enctype="multipart/form-data">
+                <form action="{{ route('kas') }}" method="get" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-3">
+                        <div class="col-4">
                             <div class="form-group">
-                                <label>Bulan</label>
-                                <select class="form-control select2bs4" style="width: 100%;" name="bulan">
-                                    <option value="">Bulan</option>
-                                    <option value="">Januari</option>
-                                    <option value="">Februari</option>
-                                    <option value="">Maret</option>
-                                    <option value="">April</option>
-                                    <option value="">Mei</option>
-                                    <option value="">Juni</option>
-                                    <option value="">Juli</option>
-                                    <option value="">Agustus</option>
-                                    <option value="">September</option>
-                                    <option value="">Oktober</option>
-                                    <option value="">November</option>
-                                    <option value="">Desember</option>
+                                <label>Tipe Kas</label>
+                                <select class="form-control select2bs4" style="width: 100%;" name="tipe">
+                                    <option value="">Kas Masuk / Kas Keluar</option>
+                                    <option value="MASUK">MASUK</option>
+                                    <option value="KELUAR">KELUAR</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
-                                <label>Tahun</label>
-                                <select class="form-control select2bs4" style="width: 100%;" name="tahun">
-                                    <option value="">Tahun</option>
-                                    <option value="2023">2023</option>
-                                    <option value="2024">2024</option>
-                                    <option value="2025">2025</option>
+                                <label>Kategori</label>
+                                <select class="form-control select2bs4" style="width: 100%;" name="category">
+                                    <option value="">Kategori Kas</option>
+                                    <option value="Iuran Paguyuban">Iuran Paguyuban</option>
+                                    <option value="Donasi">Donasi</option>
+                                    <option value="Sewa Asset">Sewa Asset</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
-                                <label>Dari Tanggal</label>
-                                <input type="date" name="from" id="" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="form-group">
-                                <label>Sampai Tanggal</label>
-                                <input type="date" name="to" id="" class="form-control">
+                                <label>Donatur</label>
+                                <select class="form-control select2bs4" style="width: 100%;" name="donatur">
+                                    <option value="">Nama Donatur</option>
+                                    @foreach ($nama as $nama)
+                                    <option value="{{ $nama->id_warga }}">{{ $nama->name }} - {{ $nama->house_block }}/{{ $nama->house_number }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-6">
                             <div class="form-group">
-                                <input type="submit" class="btn btn-primary" name="submit" value="Simpan">
+                                <input type="submit" class="btn btn-primary" name="submit" value="Cari">
                             </div>
                         </div>
                     </div>
@@ -97,8 +86,9 @@ Mutasi Kas
         <!-- list data -->
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('printMutasiKas') }}" class="btn btn-primary" target="_blank">
-                    <span class="fas fa-print"></span> Print Mutasi
+                <!-- <a href="{{ route('printMutasiKas') }}" class="btn btn-primary" target="_blank"> -->
+                <a href="{{ route('rekeningKoran') }}" class="btn btn-primary" target="_blank">
+                    <span class="fas fa-print"></span> Print Rekening Koran
                 </a>
             </div>
             <!-- /.card-header -->
@@ -125,7 +115,7 @@ Mutasi Kas
                             <th>Kategori Kas Keluar</th>
                             <th>Tanggal Keluar</th>
                             <th>Nominal Kas Keluar</th>
-                            <th>Sisa Saldo</th>
+                            <th>Saldo</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -141,11 +131,15 @@ Mutasi Kas
                             @endif
                             <td>{{ $item->cash_type }}</td>
                             <td>{{ $item->cash_in_category }}</td>
-                            <td>{{ $item->donatur }}</td>
+                            @if (is_null($item->name))
+                            <td></td>
+                            @else
+                            <td>{{ $item->name }} {{ $item->house_block }}/{{ $item->house_number }}</td>
+                            @endif
                             @if (is_null($item->cash_in_amount))
                             <td></td>
                             @else
-                            <td>Rp. {{ $item->cash_in_amount }}</td>
+                            <td>Rp. {{ number_format($item->cash_in_amount) }}</td>
                             @endif
                             <td>{{ $item->cash_out_category }}</td>
                             @if (is_null($item->tanggal_keluar))
@@ -156,9 +150,9 @@ Mutasi Kas
                             @if (is_null($item->cash_out_amount))
                             <td></td>
                             @else
-                            <td>Rp. {{ $item->cash_out_amount }}</td>
+                            <td>Rp. {{ number_format($item->cash_out_amount) }}</td>
                             @endif
-                            <td style="width: 80px;">Rp. {{ $item->last_saldo }}</td>
+                            <td style="width: 80px;">Rp. {{ number_format($item->last_saldo) }}</td>
                         </tr>
                         @endforeach
                 </table>

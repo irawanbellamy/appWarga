@@ -69,6 +69,16 @@ Edit Warga
                                     <option value="L5">Ruko</option>
                                 </select>
                             </div>
+                            <div class="form-group">
+                                <label>Status Huni</label>
+                                <select class="form-control select2bs4" style="width: 100%;" name="status">
+                                    <option value="{{ $data->status }}">{{ $data->status }}</option>
+                                    <option value="">Status Huni</option>
+                                    <option value="Menetap">Menetap</option>
+                                    <option value="Belum Menetap">Belum Menetap</option>
+                                    <option value="Sewa">Sewa</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -90,7 +100,7 @@ Edit Warga
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <a href="{{ route('warga.index') }}" class="btn btn-danger">Kembali</a>
+                                    <a href="{{ route('penghuni.index') }}" class="btn btn-danger">Kembali</a>
                                 </div>
                             </div>
                         </div>

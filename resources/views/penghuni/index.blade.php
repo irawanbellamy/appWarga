@@ -26,6 +26,7 @@ Master Data Warga
                     <thead>
                         <tr>
                             <th>No.</th>
+                            <th>ID Warga</th>
                             <th>Nama Warga</th>
                             <th>Block/No Rumah</th>
                             <th>Telpon</th>
@@ -37,10 +38,11 @@ Master Data Warga
                         @foreach ($data as $item)
                         <tr>
                             <td>{{ $no++ }}</td>
+                            <td>{{ $item->id_warga }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->house_block }}/{{ $item->house_number }}</td>
                             <td></td>
-                            <td></td>
+                            <td>{{ $item->status }}</td>
                             <td class="text-center">
                                 <a href="{{ route('penghuni.edit',[Crypt::encrypt($item->id)]) }}" class="btn btn-success btn-sm"><i class="fas fa-edit"> Edit</i></a>
                             </td>

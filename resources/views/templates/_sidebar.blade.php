@@ -75,7 +75,7 @@
                          </li>
                      </ul>
                  </li>
-                 <li class="nav-item">
+                 <!-- <li class="nav-item">
                      <a href="#" class="nav-link">
                          <i class="nav-icon fas fa-cogs"></i>
                          <p>
@@ -109,7 +109,7 @@
                              </a>
                          </li>
                      </ul>
-                 </li>
+                 </li> -->
                  <li class="nav-item">
                      <a href="#" class="nav-link">
                          <i class="nav-icon fas fa-university"></i>
@@ -128,6 +128,14 @@
                              </a>
                          </li>
                          <li class="nav-item">
+                             <a href="{{ route('printMutasiKas') }}" class="nav-link">
+                                 <i class="nav-icon far fa-circle text-info"></i>
+                                 <p>
+                                     Cetak Mutasi
+                                 </p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
                              <a href="{{ route('listKasMasuk') }}" class="nav-link">
                                  <i class="nav-icon far fa-circle text-success"></i>
                                  <p>
@@ -136,10 +144,26 @@
                              </a>
                          </li>
                          <li class="nav-item">
+                             <a href="{{ route('printKasMasuk') }}" class="nav-link">
+                                 <i class="nav-icon far fa-circle text-success"></i>
+                                 <p>
+                                     Cetak Kas Masuk
+                                 </p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
                              <a href="{{ route('listKasKeluar') }}" class="nav-link">
                                  <i class="nav-icon far fa-circle text-danger"></i>
                                  <p>
                                      Kas Keluar
+                                 </p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a href="{{ route('printKasKeluar') }}" class="nav-link">
+                                 <i class="nav-icon far fa-circle text-danger"></i>
+                                 <p>
+                                     Cetak Kas Keluar
                                  </p>
                              </a>
                          </li>

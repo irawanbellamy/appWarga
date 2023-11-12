@@ -61,12 +61,24 @@ Route::put('/pengembalianAsset/put', [PengembalianController::class, 'update'])-
 
 // Kas
 Route::get('/kas', [KasController::class, 'mutasi'])->name('kas')->middleware('auth');
+Route::get('/rekeningKoran', [KasController::class, 'rekeningKoran'])->name('rekeningKoran')->middleware('auth');
 Route::get('/printMutasiKas', [KasController::class, 'printMutasiKas'])->name('printMutasiKas')->middleware('auth');
+Route::get('/mutasiKasPdf', [KasController::class, 'mutasiKasPdf'])->name('mutasiKasPdf')->middleware('auth');
+
 Route::get('/listKasMasuk', [KasController::class, 'listKasMasuk'])->name('listKasMasuk')->middleware('auth');
 Route::get('/printKasMasuk', [KasController::class, 'printKasMasuk'])->name('printKasMasuk')->middleware('auth');
+Route::get('/rkKasMasuk', [KasController::class, 'rkKasMasuk'])->name('rkKasMasuk')->middleware('auth');
+Route::get('/mutasiKasMasukPdf', [KasController::class, 'mutasiKasMasukPdf'])->name('mutasiKasMasukPdf')->middleware('auth');
 Route::get('/kasMasuk', [KasController::class, 'kasMasuk'])->name('kasMasuk')->middleware('auth');
 Route::post('/kasMasuk/storeKasMasuk', [KasController::class, 'storeKasMasuk'])->name('storeKasMasuk')->middleware('auth');
+
 Route::get('/listKasKeluar', [KasController::class, 'listKasKeluar'])->name('listKasKeluar')->middleware('auth');
 Route::get('/printKasKeluar', [KasController::class, 'printKasKeluar'])->name('printKasKeluar')->middleware('auth');
+Route::get('/rkKasKeluar', [KasController::class, 'rkKasKeluar'])->name('rkKasKeluar')->middleware('auth');
+Route::get('/mutasiKasKeluarPdf', [KasController::class, 'mutasiKasKeluarPdf'])->name('mutasiKasKeluarPdf')->middleware('auth');
 Route::get('/kasKeluar', [KasController::class, 'kasKeluar'])->name('kasKeluar')->middleware('auth');
 Route::post('/kasKeluar/storeKasKeluar', [KasController::class, 'storeKasKeluar'])->name('storeKasKeluar')->middleware('auth');
+
+// Route::group(['middleware' => 'WARGA'], function(){
+//     Route::get('/dashboardUser', [DashboardController::class, 'dashboar'])->name('dashboard');
+// });

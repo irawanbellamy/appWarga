@@ -9,7 +9,7 @@ Warga
         <div class="card">
             <div class="card-header">
                 <a href="{{ route('warga.create') }}" class="btn btn-primary">
-                    <span class="fas fa-user-plus"></span> Tambah Warga
+                    <span class="fas fa-user-plus"></span> Tambah User
                 </a>
             </div>
             <!-- /.card-header -->
