@@ -82,6 +82,7 @@
                 <th>Kas Masuk/Keluar</th>
                 <th>Kategori Kas Masuk</th>
                 <th>Donatur</th>
+                <th>Blok/No Rumah</th>
                 <th>Nominal Kas Masuk</th>
                 <th>Kategori Kas Keluar</th>
                 <th>Tanggal Keluar</th>
@@ -104,7 +105,12 @@
                 @if (is_null($item->name))
                 <td></td>
                 @else
-                <td>{{ $item->name }} {{ $item->house_block }}/{{ $item->house_number }}</td>
+                <td>{{ $item->name }}</td>
+                @endif
+                @if (is_null($item->house_block))
+                <td></td>
+                @else
+                <td>{{ $item->house_block }}/{{ $item->house_number }}</td>
                 @endif
                 @if (is_null($item->cash_in_amount))
                 <td></td>
@@ -128,17 +134,17 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="6" style="text-align: left;"><strong>Total Saldo Masuk</strong></td>
+                <td colspan="7" style="text-align: left;"><strong>Total Saldo Masuk</strong></td>
                 <td style="width: auto;"><strong>Rp. {{ number_format($saldoIn) }}</strong></td>
                 <td colspan="4" style="text-align: center;"></td>
             </tr>
             <tr>
-                <td colspan="9" style="text-align: left;"><strong>Total Saldo Keluar</strong></td>
+                <td colspan="10" style="text-align: left;"><strong>Total Saldo Keluar</strong></td>
                 <td style="width: auto;"><strong>Rp. {{ number_format($saldoOut) }}</strong></td>
                 <td style="text-align: center;"></td>
             </tr>
             <tr>
-                <td colspan="10" style="text-align: left;"><strong>Total Saldo Tersisa</strong></td>
+                <td colspan="11" style="text-align: left;"><strong>Total Saldo Tersisa</strong></td>
                 <td style="width: auto;"><strong>Rp. {{ number_format($item->last_saldo) }}</strong></td>
             </tr>
         </tfoot>

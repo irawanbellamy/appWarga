@@ -82,6 +82,7 @@
                 <th>Kas Masuk/Keluar</th>
                 <th>Kategori Kas Masuk</th>
                 <th>Donatur</th>
+                <th>Blok/No Rumah</th>
                 <th>Nominal Kas Masuk</th>
                 <th>Kategori Kas Keluar</th>
                 <th>Tanggal Keluar</th>
@@ -103,7 +104,12 @@
                 @if (is_null($item->name))
                 <td></td>
                 @else
-                <td>{{ $item->name }} {{ $item->house_block }}/{{ $item->house_number }}</td>
+                <td>{{ $item->name }}</td>
+                @endif
+                @if (is_null($item->house_block))
+                <td></td>
+                @else
+                <td>{{ $item->house_block }}/{{ $item->house_number }}</td>
                 @endif
                 @if (is_null($item->cash_in_amount))
                 <td></td>
