@@ -25,7 +25,7 @@
          <nav class="mt-2">
              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                  <li class="nav-item">
-                     <a href="{{ route('dashboard') }}" class="nav-link active">
+                     <a href="{{ route('dashboardUser') }}" class="nav-link active">
                          <i class="nav-icon fas fa-tachometer-alt"></i>
                          <p>
                              Dashboard
@@ -42,7 +42,7 @@
                      </a>
                      <ul class="nav nav-treeview">
                          <li class="nav-item">
-                             <a href="{{ route('penghuni.index') }}" class="nav-link">
+                             <a href="{{ url('/user/penghuni') }}" class="nav-link">
                                  <i class="nav-icon far fa-circle text-success"></i>
                                  <p>
                                      Warga
@@ -50,23 +50,7 @@
                              </a>
                          </li>
                          <li class="nav-item">
-                             <a href="{{ route('warga.index') }}" class="nav-link">
-                                 <i class="nav-icon far fa-circle text-success"></i>
-                                 <p>
-                                     User
-                                 </p>
-                             </a>
-                         </li>
-                         <li class="nav-item">
-                             <a href="{{ route('pengurus.index') }}" class="nav-link">
-                                 <i class="nav-icon far fa-circle text-info"></i>
-                                 <p>
-                                     Pengurus
-                                 </p>
-                             </a>
-                         </li>
-                         <li class="nav-item">
-                             <a href="{{ route('asset') }}" class="nav-link">
+                             <a href="{{ url('/user/asset') }}" class="nav-link">
                                  <i class="nav-icon far fa-circle text-primary"></i>
                                  <p>
                                      Asset
@@ -75,41 +59,6 @@
                          </li>
                      </ul>
                  </li>
-                 <!-- <li class="nav-item">
-                     <a href="#" class="nav-link">
-                         <i class="nav-icon fas fa-cogs"></i>
-                         <p>
-                             Penggunaan Asset
-                             <i class="fas fa-angle-left right"></i>
-                         </p>
-                     </a>
-                     <ul class="nav nav-treeview">
-                         <li class="nav-item">
-                             <a href="{{ route('penggunaanAsset') }}" class="nav-link">
-                                 <i class="nav-icon far fa-circle text-info"></i>
-                                 <p>
-                                     List Penggunaan Asset
-                                 </p>
-                             </a>
-                         </li>
-                         <li class="nav-item">
-                             <a href="{{ route('peminjamanAsset') }}" class="nav-link">
-                                 <i class="nav-icon far fa-circle text-danger"></i>
-                                 <p>
-                                     Peminjaman Asset
-                                 </p>
-                             </a>
-                         </li>
-                         <li class="nav-item">
-                             <a href="#" class="nav-link">
-                                 <i class="nav-icon far fa-circle text-success"></i>
-                                 <p>
-                                     Pengembalian Asset
-                                 </p>
-                             </a>
-                         </li>
-                     </ul>
-                 </li> -->
                  <li class="nav-item">
                      <a href="#" class="nav-link">
                          <i class="nav-icon fas fa-university"></i>
@@ -120,7 +69,15 @@
                      </a>
                      <ul class="nav nav-treeview">
                          <li class="nav-item">
-                             <a href="{{ route('kas') }}" class="nav-link">
+                             <a href="{{ route('iuranSaya',[Crypt::encrypt(auth()->user()->user_id)]) }}" class="nav-link">
+                                 <i class="nav-icon far fa-circle text-info"></i>
+                                 <p>
+                                     Iuran Saya
+                                 </p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a href="{{ route('UserMutasi') }}" class="nav-link">
                                  <i class="nav-icon far fa-circle text-info"></i>
                                  <p>
                                      Mutasi Kas
@@ -128,15 +85,15 @@
                              </a>
                          </li>
                          <li class="nav-item">
-                             <a href="{{ route('printMutasiKas') }}" class="nav-link">
+                             <a href="{{ route('filterMutasi') }}" class="nav-link">
                                  <i class="nav-icon far fa-circle text-info"></i>
                                  <p>
-                                     Cetak Mutasi
+                                     Filter Mutasi
                                  </p>
                              </a>
                          </li>
                          <li class="nav-item">
-                             <a href="{{ route('listKasMasuk') }}" class="nav-link">
+                             <a href="{{ route('UserKasMasuk') }}" class="nav-link">
                                  <i class="nav-icon far fa-circle text-success"></i>
                                  <p>
                                      Kas Masuk
@@ -144,17 +101,33 @@
                              </a>
                          </li>
                          <li class="nav-item">
-                             <a href="{{ route('listKasKeluar') }}" class="nav-link">
+                             <a href="{{ route('filterKasMasuk') }}" class="nav-link">
+                                 <i class="nav-icon far fa-circle text-success"></i>
+                                 <p>
+                                     Filter Kas Masuk
+                                 </p>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a href="{{ route('UserKasKeluar') }}" class="nav-link">
                                  <i class="nav-icon far fa-circle text-danger"></i>
                                  <p>
                                      Kas Keluar
                                  </p>
                              </a>
                          </li>
+                         <li class="nav-item">
+                             <a href="{{ route('filterKasKeluar') }}" class="nav-link">
+                                 <i class="nav-icon far fa-circle text-danger"></i>
+                                 <p>
+                                     Filter Kas Keluar
+                                 </p>
+                             </a>
+                         </li>
                      </ul>
                  </li>
                  <li class="nav-item">
-                     <a href="{{ route('pengaduan') }}" class="nav-link">
+                     <a href="{{ url('/user/pengaduan/') }}" class="nav-link">
                          <i class="nav-icon fas fa-file-signature"></i>
                          <p>
                              Pengaduan

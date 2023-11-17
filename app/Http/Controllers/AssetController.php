@@ -79,7 +79,7 @@ class AssetController extends Controller
 
     public function update(Request $request, $asset_id)
     {
-        // $id = 'AS' . date('YmdHis');
+        
         $input = ([
             'asset_name'        => $request['asset_name'],
             'quantity'          => $request['quantity'],

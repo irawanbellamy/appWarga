@@ -32,16 +32,6 @@ class DashboardController extends Controller
                 return redirect()->intended('dashboardUser');
             }
         }
-
-        // $akun = $request->validate([
-        //     'email'     => ['required', 'email:dns'],
-        //     'password'  => ['required'],
-        // ]);
-
-        // if (Auth::attempt($akun)) {
-        //     $request->session()->regenerate();
-        //     return redirect()->intended('/dashboard');
-        // }
         return back()->withErrors(['email' => 'The provided credentials do not match our records'])->onlyInput('email');
     }
 

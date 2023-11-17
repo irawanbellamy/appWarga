@@ -56,7 +56,11 @@
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         <!-- navbar -->
+        @if (auth()->user()->role != 'ADMIN')
+        @include('templates._navbarUser')
+        @else
         @include('templates._navbar')
+        @endif
         <!-- end navbar -->
 
         <!-- sidebar -->

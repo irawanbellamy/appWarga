@@ -37,7 +37,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('profile',[Crypt::encrypt(auth()->user()->user_id)] ) }}" role="button">
+            <a class="nav-link" href="{{ url('/user/profile',[Crypt::encrypt(auth()->user()->user_id)] ) }}" role="button">
                 <i class="fas fa-user"> {{ ucfirst(auth()->user()->name) }}</i>
             </a>
         </li>

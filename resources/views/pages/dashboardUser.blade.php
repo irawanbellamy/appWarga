@@ -4,15 +4,23 @@ Dashboard
 @endsection
 @section('content_header')
 <h4 class="m-0">Selamat Datang {{ ucfirst(auth()->user()->name) }}</h4>
-<h4 class="m-0">Selamat Datang {{ ucfirst(auth()->user()->role) }}</h4>
+
 @endsection
 @section('content')
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
+        @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session('success') }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
         <!-- Small boxes (Stat box) -->
         <div class="row mr-2">
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-4 col-6">
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
@@ -26,11 +34,11 @@ Dashboard
                     <div class="icon">
                         <i class="ion ion-person"></i>
                     </div>
-                    <a href="{{route('penghuni.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ url('/user/penghuni') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-4 col-6">
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
@@ -44,11 +52,11 @@ Dashboard
                     <div class="icon">
                         <i class="ion ion-email"></i>
                     </div>
-                    <a href="{{route('pengaduan')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ url('/user/pengaduan') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-4 col-6">
                 <!-- small box -->
                 <div class="small-box bg-warning">
                     <div class="inner">
@@ -62,28 +70,11 @@ Dashboard
                     <div class="icon">
                         <i class="ion ion-wrench"></i>
                     </div>
-                    <a href="{{ route('asset') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ url('/user/asset') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-danger">
-                    <div class="inner">
-                        @if (is_null($user))
-                        <h3>0</h3>
-                        @else
-                        <h3>{{$user}}</h3>
-                        @endif
-                        <p>Pengguna</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-pie-graph"></i>
-                    </div>
-                    <a href="{{route('warga.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-            <!-- ./col -->
+
         </div>
 
         <!-- /.row -->
@@ -108,7 +99,7 @@ Dashboard
                                 <span class="font-weight-bold">
                                     Kas Masuk
                                 </span>
-                                <span class="text-muted">Rp. {{ $kas_masuk }}</span>
+                                <span class="text-muted">Rp. {{ number_format($kas_masuk) }}</span>
                             </p>
                         </div>
                         <!-- /.d-flex -->
@@ -120,7 +111,7 @@ Dashboard
                                 <span class="font-weight-bold">
                                     Kas Keluar
                                 </span>
-                                <span class="text-muted">Rp. {{ $kas_keluar }}</span>
+                                <span class="text-muted">Rp. {{ number_format($kas_keluar) }}</span>
                             </p>
                         </div>
                         <!-- /.d-flex -->
@@ -135,7 +126,7 @@ Dashboard
                                 @if (is_null($saldo))
                                 <span class="text-muted">Rp. 0</span>
                                 @else
-                                <span class="text-muted">Rp. {{ $saldo->last_saldo }}</span>
+                                <span class="text-muted">Rp. {{ number_format($saldo->last_saldo) }}</span>
                                 @endif
                             </p>
                         </div>

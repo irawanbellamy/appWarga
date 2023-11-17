@@ -210,8 +210,6 @@ class PengaduanController extends Controller
         $decrypt = Crypt::decrypt($complaint_id);
         $data =
             DB::table('lacak_pengaduans')
-            // ->leftJoin('pengaduans', 'lacak_pengaduans.complaint_id', '=', 'pengaduans.complaint_id')
-            // ->select('lacak_pengaduans.*', 'pengaduans.user_input', 'pengaduans.user_update')
             ->where('lacak_pengaduans.complaint_id', '=', $decrypt)
             ->get();
         // dd($decrypt);

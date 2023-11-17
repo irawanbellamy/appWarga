@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Penghuni;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -30,8 +31,18 @@ class WargaController extends Controller
     public function create()
     {
         $nama = DB::table('penghunis')->get();
+        // dd($nama);
         return view('warga.create', [
             'nama'      => $nama,
+        ]);
+    }
+
+    public function getPenghuni($id){
+        $penghuni = Penghuni::find($id);
+        return response()->json([
+            'name'  => $penghuni->name,
+            'house_block'  => $penghuni->house_block,
+            'house_number'  => $penghuni->house_number,
         ]);
     }
 
@@ -63,6 +74,33 @@ class WargaController extends Controller
 
         User::create($input);
         return redirect()->route('warga.index')->with('success', 'Tambah data warga berhasil');
+    }
+
+    public function profile($user_id)
+    {
+        $decrypt = Crypt::decrypt($user_id);
+        $data = DB::select('select * from users where user_id = ?', [$decrypt]);
+        return view('warga.profile', [
+            'data'  => $data
+        ]);
+    }
+
+    public function updateProfile(Request $request, $user_id)
+    {
+        $request->validate([
+            'password'  => 'required',
+        ]);
+
+        $input = ([
+            'password'        => $request['password'],
+        ]);
+
+        User::where(['user_id' => $user_id])
+            ->update([
+                'password'        => bcrypt($input['password']),
+            ]);
+
+        return redirect()->route('dashboard')->with('success', 'Rubah password berhasil');
     }
 
     /**
