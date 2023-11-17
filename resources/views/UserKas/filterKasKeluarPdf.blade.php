@@ -70,7 +70,7 @@
         <hr>
     </div>
     <div class="title">
-        <h1>Rekap Kas Masuk</h1>
+        <h1>Rekap Kas Keluar</h1>
     </div>
 
     <table id="kas">

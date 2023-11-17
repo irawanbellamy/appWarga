@@ -85,14 +85,6 @@
                              </a>
                          </li>
                          <li class="nav-item">
-                             <a href="{{ route('filterMutasi') }}" class="nav-link">
-                                 <i class="nav-icon far fa-circle text-info"></i>
-                                 <p>
-                                     Filter Mutasi
-                                 </p>
-                             </a>
-                         </li>
-                         <li class="nav-item">
                              <a href="{{ route('UserKasMasuk') }}" class="nav-link">
                                  <i class="nav-icon far fa-circle text-success"></i>
                                  <p>
@@ -101,26 +93,10 @@
                              </a>
                          </li>
                          <li class="nav-item">
-                             <a href="{{ route('filterKasMasuk') }}" class="nav-link">
-                                 <i class="nav-icon far fa-circle text-success"></i>
-                                 <p>
-                                     Filter Kas Masuk
-                                 </p>
-                             </a>
-                         </li>
-                         <li class="nav-item">
                              <a href="{{ route('UserKasKeluar') }}" class="nav-link">
                                  <i class="nav-icon far fa-circle text-danger"></i>
                                  <p>
                                      Kas Keluar
-                                 </p>
-                             </a>
-                         </li>
-                         <li class="nav-item">
-                             <a href="{{ route('filterKasKeluar') }}" class="nav-link">
-                                 <i class="nav-icon far fa-circle text-danger"></i>
-                                 <p>
-                                     Filter Kas Keluar
                                  </p>
                              </a>
                          </li>

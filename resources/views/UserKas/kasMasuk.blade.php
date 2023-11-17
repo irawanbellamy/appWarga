@@ -104,7 +104,9 @@ Kas Masuk
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <input type="submit" class="btn btn-primary" name="submit" value="Cari">
+                                <input type="hidden" name="action_type" id="action_type" value="Cari">
+                                <input type="submit" class="btn btn-primary" onclick="setActionType('html')" value="Tampilkan Data">
+                                <input type="submit" class="btn btn-warning" onclick="setActionType('pdf')" value="Download PDF">
                             </div>
                         </div>
                     </div>
@@ -120,7 +122,7 @@ Kas Masuk
         <div class="card">
             <div class="card-header">
                 <a href="{{ route('UserRkKasMasuk') }}" target="_blank" class="btn btn-success">
-                    <span class="fas fa-print"></span> Print Rekap Kas Masuk
+                    <span class="fas fa-print"></span> Rekap Kas Masuk PDF (All)
                 </a>
             </div>
             <!-- /.card-header -->
@@ -184,5 +186,11 @@ Kas Masuk
         <!-- /.card -->
     </div><!-- /.container-fluid -->
 </section>
+<script>
+    function setActionType(type) {
+        document.getElementById('action_type').value = type;
+        console.log(type)
+    }
+</script>
 <!-- /.content -->
 @endsection
