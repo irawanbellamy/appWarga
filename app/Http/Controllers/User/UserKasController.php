@@ -132,6 +132,7 @@ class UserKasController extends Controller
         })
             ->leftJoin('kas_keluars as kk', 'k.transaction_id', '=', 'kk.transaction_id')
             ->groupBy('k.transaction_id')
+            ->orderBy('k.id')
             ->get();
 
         $saldoIn = DB::table('kas_masuks')->sum('amount');

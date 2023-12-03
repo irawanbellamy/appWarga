@@ -184,10 +184,12 @@ class KasController extends Controller
         })
             ->leftJoin('kas_keluars as kk', 'k.transaction_id', '=', 'kk.transaction_id')
             ->groupBy('k.transaction_id')
-            ->get();
+            ->orderBy('k.id')->get();
 
         $saldoIn = DB::table('kas_masuks')->sum('amount');
         $saldoOut = DB::table('kas_keluars')->sum('amount');
+
+        // dd($data);
 
         $pdf = Pdf::loadView('kas.rekeningKoran', [
             'data'          => $data,
