@@ -23,6 +23,16 @@ class PenghuniController extends Controller
         ]);
     }
 
+    public function getDataPenghuni(){
+        $penghuni = Penghuni::all();
+        return response()->json($penghuni);
+    }
+
+    public function getDataPenghuniById($id){
+        $penghuni = DB::table('penghunis')->where('id_warga', '=', $id)->get();
+        return response()->json($penghuni);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

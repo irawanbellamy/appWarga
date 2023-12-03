@@ -30,21 +30,21 @@ class WargaController extends Controller
      */
     public function create()
     {
-        $nama = DB::table('penghunis')->get();
+        $penghuni = DB::table('penghunis')->get();
         // dd($nama);
         return view('warga.create', [
-            'nama'      => $nama,
+            'penghuni'      => $penghuni,
         ]);
     }
 
-    public function getPenghuni($id){
-        $penghuni = Penghuni::find($id);
-        return response()->json([
-            'name'  => $penghuni->name,
-            'house_block'  => $penghuni->house_block,
-            'house_number'  => $penghuni->house_number,
-        ]);
-    }
+    // public function getPenghuni($id){
+    //     $penghuni = Penghuni::find($id);
+    //     return response()->json([
+    //         'name'  => $penghuni->name,
+    //         'house_block'  => $penghuni->house_block,
+    //         'house_number'  => $penghuni->house_number,
+    //     ]);
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -52,6 +52,7 @@ class WargaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'user_id'           => 'required',
             'name'              => 'required',
             'house_block'       => 'required',
             'house_number'      => 'required',
@@ -61,6 +62,7 @@ class WargaController extends Controller
         ]);
 
         $input = ([
+            'user_id'           => $request['user_id'],
             'name'              => $request['name'],
             'house_block'       => $request['house_block'],
             'house_number'      => $request['house_number'],

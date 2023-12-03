@@ -8,8 +8,11 @@ Pengaduan
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('pengaduan.create') }}" class="btn btn-danger">
-                    <span class="fas fa-exclamation-triangle"></span> Buat Pengaduan
+                <a href="{{ route('pengaduan.create') }}" class="btn btn-primary">
+                    <span class="fas fa-plus"></span> Buat Pengaduan
+                </a>
+                <a href="{{ route('pengaduanPdf') }}" class="btn btn-success" target="_blank">
+                    <span class="fas fa-print"></span> Rekap Pengaduan PDF
                 </a>
             </div>
             <!-- /.card-header -->

@@ -10,6 +10,7 @@ use Intervention\Image\Facades\Image;
 use App\Models\Pengaduan;
 use App\Models\LacakPengaduan;
 use Illuminate\Support\Facades\Crypt;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ComplaintController extends Controller
 {
@@ -23,6 +24,16 @@ class ComplaintController extends Controller
         ]);
     }
 
+    public function pengaduanPdf(){
+        $no = 1;
+        $data = DB::table('pengaduans')->get();
+        $pdf = Pdf::loadView('UserPengaduan.pengaduanPdf', [
+            'no'            => $no,
+            'data'          => $data,
+        ])->setPaper('A3', 'landscape');
+        return $pdf->stream();
+    }
+
     public function create(){
         return view('UserPengaduan.create');
     }
@@ -33,7 +44,7 @@ class ComplaintController extends Controller
         $request->validate([
             'complaint_type'    => 'required',
             'description'       => 'required',
-            'attachment'        => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'attachment'        => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:8192',
         ]);
 
         // ID Pengaduan
@@ -55,7 +66,7 @@ class ComplaintController extends Controller
         // folder upload image
         $destinationPath = 'upload';
         $img = Image::make($image->getRealPath());
-        $img->resize(200, 200, function ($constraint) {
+        $img->resize(500, 500, function ($constraint) {
             $constraint->aspectRatio();
         })->save($destinationPath . '/' . $input['attachment']);
 

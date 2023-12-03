@@ -33,7 +33,7 @@ Kas Keluar
                 <form action="{{ route('UserKasKeluar') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-md-4 col-12">
                             <div class="form-group">
                                 <label>Kategori</label>
                                 <select class="form-control select2bs4" style="width: 100%;" name="category">
@@ -44,13 +44,13 @@ Kas Keluar
                                 </select>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4 col-12">
                             <div class="form-group">
                                 <label>Dari Tanggal</label>
                                 <input class="form-control" type="date" name="from" id="" placeholder="Dari Tanggal">
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4 col-12">
                             <div class="form-group">
                                 <label>Sampai Tanggal</label>
                                 <input class="form-control" type="date" name="to" id="" placeholder="Sampai Tanggal">
@@ -58,10 +58,7 @@ Kas Keluar
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
-                            <!-- <div class="form-group">
-                                <input type="submit" class="btn btn-primary" name="submit" value="Cari">
-                            </div> -->
+                        <div class="col-md-6 col-12">
                             <div class="form-group">
                                 <input type="hidden" name="action_type" id="action_type" value="Cari">
                                 <input type="submit" class="btn btn-primary" onclick="setActionType('html')" value="Tampilkan Data">

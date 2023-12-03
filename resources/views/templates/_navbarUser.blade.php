@@ -44,7 +44,7 @@
         <li class="nav-item">
             <form action="/logout" method="POST">
                 @csrf
-                <button type="submit" class="btn btn-danger"><span class="fas fa-sign-out-alt"></span>
+                <button type="submit" class="btn btn-danger btn-sm"><span class="fas fa-sign-out-alt"></span>
                     Logout</button>
             </form>
         </li>

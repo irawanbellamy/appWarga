@@ -40,11 +40,14 @@ Route::group(["middleware" => "role:ADMIN"], function(){
     Route::get('/getPenghuni/{id}', [WargaController::class, 'getPenghuni'])->name('getPenghuni');
     // Master Warga
     Route::resource('/penghuni', PenghuniController::class);
+    Route::get('/getDataPenghuni', [PenghuniController::class, 'getDataPenghuni']);
+    Route::get('/getDataPenghuni/{id}', [PenghuniController::class, 'getDataPenghuniById']);
     // Master Pengurus
     Route::resource('/pengurus', PengurusController::class);
 
     // Pengaduan
     Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan');
+    Route::get('/pengaduanPdf', [PengaduanController::class, 'pengaduanPdf'])->name('pengaduanPdf');
     Route::get('/pengaduan/create', [PengaduanController::class, 'create'])->name('pengaduan.create');
     Route::post('/pengaduan/store', [PengaduanController::class, 'store'])->name('pengaduan.store');
     Route::get('/pengaduan/edit/{complaint_id}', [PengaduanController::class, 'edit'])->name('pengaduan.edit');
@@ -91,6 +94,7 @@ Route::group(["prefix" => "/user", "middleware" => "auth"], function(){
     Route::get('/penghuni', [MasterController::class, 'penghuni']);
     Route::get('/asset', [MasterController::class, 'asset']);
     Route::get('/pengaduan', [ComplaintController::class, 'index'])->name('UserPengaduan');
+    Route::get('/pengaduanPdf', [ComplaintController::class, 'pengaduanPdf'])->name('UserPengaduanPdf');
     Route::get('/pengaduan/create', [ComplaintController::class, 'create']);
     Route::post('/pengaduan/store', [ComplaintController::class, 'store']);
     Route::get('/pengaduan/detail/{complaint_id}', [ComplaintController::class, 'detail'])->name('UserPengaduanDetail');

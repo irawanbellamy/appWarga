@@ -15,6 +15,7 @@ class KasKeluar extends Model
         'amount',
         'transaction_date',
         'cash_out_attachment',
+        'cash_out_note',
         'user_input',
     ];
 }

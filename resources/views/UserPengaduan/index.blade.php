@@ -8,8 +8,11 @@ Pengaduan
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <a href="{{ url('/user/pengaduan/create') }}" class="btn btn-danger">
-                    <span class="fas fa-exclamation-triangle"></span> Buat Pengaduan
+                <a href="{{ url('/user/pengaduan/create') }}" class="btn btn-primary">
+                    <span class="fas fa-plus"></span> Buat Pengaduan
+                </a>
+                <a href="{{ url('/user/pengaduanPdf') }}" class="btn btn-success" target="_blank">
+                    <span class="fas fa-print"></span> Rekap Pengaduan PDF
                 </a>
             </div>
             <!-- /.card-header -->
@@ -106,6 +109,7 @@ Pengaduan
                             <td>{{ $item->user_update }}</td>
                         </tr>
                         @endforeach
+                    </tbody>
                 </table>
             </div>
             <!-- /.card-body -->

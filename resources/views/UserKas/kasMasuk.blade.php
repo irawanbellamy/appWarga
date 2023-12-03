@@ -33,7 +33,7 @@ Kas Masuk
                 <form action="{{ route('UserKasMasuk') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-3">
+                        <div class="col-md-3 col-12">
                             <div class="form-group">
                                 <label>Bulan</label>
                                 <select class="form-control select2bs4" style="width: 100%;" name="bulan">
@@ -53,7 +53,7 @@ Kas Masuk
                                 </select>
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-md-3 col-12">
                             <div class="form-group">
                                 <label>Tahun</label>
                                 <select class="form-control select2bs4" style="width: 100%;" name="tahun">
@@ -64,7 +64,7 @@ Kas Masuk
                                 </select>
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-md-3 col-12">
                             <div class="form-group">
                                 <label>Kategori</label>
                                 <select class="form-control select2bs4" style="width: 100%;" name="category">
@@ -75,7 +75,7 @@ Kas Masuk
                                 </select>
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-md-3 col-12">
                             <div class="form-group">
                                 <label>Donatur</label>
                                 <select class="form-control select2bs4" style="width: 100%;" name="donatur">
@@ -88,13 +88,13 @@ Kas Masuk
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-md-4 col-12">
                             <div class="form-group">
                                 <label>Dari Tanggal</label>
                                 <input class="form-control" type="date" name="from" id="" placeholder="Dari Tanggal">
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4 col-12">
                             <div class="form-group">
                                 <label>Sampai Tanggal</label>
                                 <input class="form-control" type="date" name="to" id="" placeholder="Sampai Tanggal">
@@ -102,7 +102,7 @@ Kas Masuk
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-md-6 col-12">
                             <div class="form-group">
                                 <input type="hidden" name="action_type" id="action_type" value="Cari">
                                 <input type="submit" class="btn btn-primary" onclick="setActionType('html')" value="Tampilkan Data">

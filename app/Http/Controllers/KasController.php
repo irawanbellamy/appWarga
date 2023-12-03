@@ -7,7 +7,6 @@ use App\Models\Kas;
 use App\Models\KasKeluar;
 use App\Models\KasMasuk;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Facades\Image;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -16,20 +15,93 @@ use Illuminate\Support\Carbon;
 
 class KasController extends Controller
 {
-    public function mutasi()
+    public function mutasi(Request $request)
     {
+        $actionType = $request->input('action_type');
+        if($actionType == 'html'){
+            $donatur = request()->input('donatur');
+            $category = request()->input('category');
+            $tipe = request()->input('tipe');
+            $no = 1;
+            $subquery = DB::table('kas_masuks as km')
+                ->select('km.*', 'p.name', 'p.house_block', 'p.house_number')
+                ->leftJoin('penghunis as p', 'km.donatur', '=', 'p.id_warga');
+            $query = DB::table('kas as k')
+                ->select('k.*', 'km.name', 'km.house_block', 'km.house_number', 'km.cash_in_date as tanggal_masuk', 'kk.transaction_date as tanggal_keluar')
+                ->leftJoinSub($subquery, 'km', function (JoinClause $join) {
+                    $join->on('k.transaction_id', '=', 'km.transaction_id');
+                })
+                ->leftJoin('kas_keluars as kk', 'k.transaction_id', '=', 'kk.transaction_id')
+                ->groupBy('k.transaction_id')
+                ->orderByDesc('id');
+
+            if ($donatur) {
+                $query->where('km.donatur', '=', $donatur);
+            }
+            if ($category) {
+                $query->where('km.cash_in_category', '=', $category);
+            }
+            if ($tipe) {
+                $query->where('k.cash_type', '=', $tipe);
+            }
+            $data = $query->get();
+
+            $nama = DB::table('penghunis')->get();
+
+            return view('kas.mutasi', [
+                'nama'  => $nama,
+                'data'  => $data,
+                'no'    => $no,
+            ]);
+        } elseif($actionType == 'pdf'){
+            $donatur = request()->input('donatur');
+            $category = request()->input('category');
+            $tipe = request()->input('tipe');
+            $no = 1;
+            $subquery = DB::table('kas_masuks as km')
+            ->select('km.*', 'p.name', 'p.house_block', 'p.house_number')
+            ->leftJoin('penghunis as p', 'km.donatur', '=', 'p.id_warga');
+            $query = DB::table('kas as k')
+                ->select('k.*', 'km.name', 'km.house_block', 'km.house_number', 'km.cash_in_date as tanggal_masuk', 'kk.transaction_date as tanggal_keluar')
+                ->leftJoinSub($subquery, 'km', function (JoinClause $join) {
+                    $join->on('k.transaction_id', '=', 'km.transaction_id');
+                })
+                ->leftJoin('kas_keluars as kk', 'k.transaction_id', '=', 'kk.transaction_id')
+                ->groupBy('k.transaction_id')
+                ->orderByDesc('id');
+
+            if ($donatur) {
+                $query->where('km.donatur', '=', $donatur);
+            }
+            if ($category) {
+                $query->where('km.cash_in_category', '=', $category);
+            }
+            if ($tipe) {
+                $query->where('k.cash_type', '=', $tipe);
+            }
+            $data = $query->get();
+
+            $nama = DB::table('penghunis')->get();
+            $pdf = Pdf::loadView('kas.mutasiKasPdf', [
+                'nama'  => $nama,
+                'data'          => $data,
+                'no'            => $no,
+            ])->setPaper('A4', 'landscape');
+            return $pdf->download('mutasi_kas.pdf');
+        }
+
         $donatur = request()->input('donatur');
         $category = request()->input('category');
         $tipe = request()->input('tipe');
         $no = 1;
         $subquery = DB::table('kas_masuks as km')
-            ->select('km.*', 'p.name', 'p.house_block', 'p.house_number')
-            ->leftJoin('penghunis as p', 'km.donatur', '=', 'p.id_warga');
+        ->select('km.*', 'p.name', 'p.house_block', 'p.house_number')
+        ->leftJoin('penghunis as p', 'km.donatur', '=', 'p.id_warga');
         $query = DB::table('kas as k')
-            ->select('k.*', 'km.name', 'km.house_block', 'km.house_number', 'km.cash_in_date as tanggal_masuk', 'kk.transaction_date as tanggal_keluar')
-            ->leftJoinSub($subquery, 'km', function(JoinClause $join){
-                $join->on('k.transaction_id', '=', 'km.transaction_id');
-            })
+        ->select('k.*', 'km.name', 'km.house_block', 'km.house_number', 'km.cash_in_date as tanggal_masuk', 'kk.transaction_date as tanggal_keluar')
+        ->leftJoinSub($subquery, 'km', function (JoinClause $join) {
+            $join->on('k.transaction_id', '=', 'km.transaction_id');
+        })
             ->leftJoin('kas_keluars as kk', 'k.transaction_id', '=', 'kk.transaction_id')
             ->groupBy('k.transaction_id')
             ->orderByDesc('id');
@@ -52,6 +124,7 @@ class KasController extends Controller
             'data'  => $data,
             'no'    => $no,
         ]);
+
     }
 
     public function printMutasiKas()
@@ -79,11 +152,6 @@ class KasController extends Controller
             ->leftJoin('kas_keluars as kk', 'k.transaction_id', '=', 'kk.transaction_id')
             ->groupBy('k.transaction_id')
             ->orderByDesc('id');
-        // $query = DB::table('kas as k')
-        //     ->select('k.*', 'km.donatur', 'km.cash_in_date as tanggal_masuk', 'kk.transaction_date as tanggal_keluar')
-        //     ->leftJoin('kas_masuks as km', 'k.transaction_id', '=', 'km.transaction_id')
-        //     ->leftJoin('kas_keluars as kk', 'k.transaction_id', '=', 'kk.transaction_id')
-        //     ->groupBy('k.transaction_id');
         if ($donatur) {
             $query->where('km.donatur', '=', $donatur);
         }

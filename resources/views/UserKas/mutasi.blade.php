@@ -33,7 +33,7 @@ Mutasi Kas
                 <form action="{{ route('UserMutasi') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-md-4 col-12">
                             <div class="form-group">
                                 <label>Tipe Kas</label>
                                 <select class="form-control select2bs4" style="width: 100%;" name="tipe">
@@ -43,7 +43,7 @@ Mutasi Kas
                                 </select>
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-md-4 col-12">
                             <div class="form-group">
                                 <label>Kategori</label>
                                 <select class="form-control select2bs4" style="width: 100%;" name="category">
@@ -54,7 +54,7 @@ Mutasi Kas
                                 </select>
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-md-4 col-12">
                             <div class="form-group">
                                 <label>Donatur</label>
                                 <select class="form-control select2bs4" style="width: 100%;" name="donatur">
@@ -67,14 +67,14 @@ Mutasi Kas
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-md-12 col-12">
                             <div class="form-group">
                                 <input type="hidden" name="action_type" id="action_type" value="Cari">
                                 <input type="submit" class="btn btn-primary" onclick="setActionType('html')" value="Tampilkan Data">
                                 <input type="submit" class="btn btn-warning" onclick="setActionType('pdf')" value="Download PDF">
                             </div>
                         </div>
-                    </div>
+                    </div> 
                 </form>
             </div>
             <!-- /. row -->

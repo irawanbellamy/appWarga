@@ -38,10 +38,10 @@ Tambah Warga
                             <div class="form-group">
                                 <label>Warga</label>
                                 <input class="form-control" type="hidden" name="is_active" value="1">
-                                <select class="form-control select2bs4" id="selectPenghuni" style="width: 100%;" name="user_id">
+                                <select class="form-control select2bs4" id="penghuni" style="width: 100%;" name="user_id">
                                     <option value="">Warga</option>
-                                    @foreach ($nama as $nama)
-                                    <option value="{{ $nama->id_warga }}">{{ $nama->name }} - {{ $nama->house_block }}/{{ $nama->house_number }}</option>
+                                    @foreach ($penghuni as $item)
+                                    <option value="{{ $item->id_warga }}">{{ $item->name }} - {{ $item->house_block }}/{{ $item->house_number }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -72,7 +72,7 @@ Tambah Warga
                         <div class="col-4">
                             <div class="form-group">
                                 <label>Nomor Rumah</label>
-                                <input type="number" id="house_number" class="form-control" name="house_number" placeholder="Email" value="{{ old('house_number') }}">
+                                <input type="text" id="house_number" class="form-control" name="house_number" placeholder="Nomor Rumah" value="{{ old('house_number') }}">
                             </div>
                         </div>
                     </div>
@@ -87,7 +87,7 @@ Tambah Warga
                         <div class="col-4">
                             <div class="form-group">
                                 <label>Password</label>
-                                <input type="password" class="form-control" name="password" placeholder="Password" value="{{ old('password') }}">
+                                <input type="password" class="form-control" name="password" placeholder="Password" value="{{ old('password') }}" autocomplete="on">
                             </div>
                         </div>
                         <div class="col-4">
@@ -120,5 +120,5 @@ Tambah Warga
         <!-- /.card -->
     </div><!-- /.container-fluid -->
 </section>
-<!-- /.content -->
+
 @endsection
