@@ -200,8 +200,85 @@ class KasController extends Controller
         return $pdf->stream();
     }
 
-    public function listKasMasuk()
+    public function listKasMasuk(Request $request)
     {
+        $actionType = $request->input('action_type');
+        if($actionType == 'html'){
+            $bulan = request()->input('bulan');
+            $tahun = request()->input('tahun');
+            $donatur = request()->input('donatur');
+            $category = request()->input('category');
+            $from = request()->input('from');
+            $to = request()->input('to');
+
+            $no = 1;
+            $nama = DB::table('penghunis')->get();
+            $query = DB::table('kas_masuks as km')
+            ->select('km.*', 'p.name', 'p.house_block', 'p.house_number')
+            ->leftJoin('penghunis as p', 'km.donatur', '=', 'p.id_warga')
+            ->orderByDesc('created_at');
+
+            if ($donatur) {
+                $query->where('donatur', '=', $donatur);
+            }
+            if ($category) {
+                $query->where('cash_in_category', '=', $category);
+            }
+            if ($bulan) {
+                $query->where('cash_in_month', '=', $bulan);
+            }
+            if ($tahun) {
+                $query->where('cash_in_year', '=', $tahun);
+            }
+            if ($from || $to) {
+                $query->whereBetween('cash_in_date', [$from, $to]);
+            }
+            $data = $query->get();
+            return view('kas.listKasMasuk', [
+                'no' => $no,
+                'nama'  => $nama,
+                'data' => $data
+            ]);
+        } elseif ($actionType == 'pdf') {
+            $bulan = request()->input('bulan');
+            $tahun = request()->input('tahun');
+            $donatur = request()->input('donatur');
+            $category = request()->input('category');
+            $from = request()->input('from');
+            $to = request()->input('to');
+            $no = 1;
+            $nama = DB::table('penghunis')->get();
+
+            $query = DB::table('kas_masuks as km')
+            ->select('km.*', 'p.name', 'p.house_block', 'p.house_number')
+            ->leftJoin('penghunis as p', 'km.donatur', '=', 'p.id_warga')
+            ->orderByDesc('created_at');
+            if ($donatur) {
+                $query->where('donatur', '=', $donatur);
+            }
+            if ($category) {
+                $query->where('cash_in_category', '=', $category);
+            }
+            if ($bulan) {
+                $query->where('cash_in_month', '=', $bulan);
+            }
+            if ($tahun) {
+                $query->where('cash_in_year', '=', $tahun);
+            }
+            if ($from || $to) {
+                $query->where('cash_in_date', [$from, $to]);
+            }
+            $data = $query->get();
+            $total = $data->sum('amount');
+            $pdf = Pdf::loadView('kas.mutasiKasMasukPdf', [
+                    'nama'        => $nama,
+                    'total'        => $total,
+                    'data'          => $data,
+                    'no'            => $no,
+                ])->setPaper('A4', 'landscape');
+            return $pdf->download('kas_masuk.pdf');
+        }
+
         $bulan = request()->input('bulan');
         $tahun = request()->input('tahun');
         $donatur = request()->input('donatur');
@@ -239,54 +316,54 @@ class KasController extends Controller
         ]);
     }
 
-    public function printKasMasuk()
-    {
-        $nama = DB::table('penghunis')->get();
-        return view('kas.printKasMasuk', [
-            'nama'  => $nama,
-        ]);
-    }
+    // public function printKasMasuk()
+    // {
+    //     $nama = DB::table('penghunis')->get();
+    //     return view('kas.printKasMasuk', [
+    //         'nama'  => $nama,
+    //     ]);
+    // }
 
-    public function mutasiKasMasukPdf()
-    {
-        $bulan = request()->input('bulan');
-        $tahun = request()->input('tahun');
-        $donatur = request()->input('donatur');
-        $category = request()->input('category');
-        $from = request()->input('from');
-        $to = request()->input('to');
-        $no = 1;
-        $nama = DB::table('penghunis')->get();
+    // public function mutasiKasMasukPdf()
+    // {
+    //     $bulan = request()->input('bulan');
+    //     $tahun = request()->input('tahun');
+    //     $donatur = request()->input('donatur');
+    //     $category = request()->input('category');
+    //     $from = request()->input('from');
+    //     $to = request()->input('to');
+    //     $no = 1;
+    //     $nama = DB::table('penghunis')->get();
 
-        $query = DB::table('kas_masuks as km')
-        ->select('km.*', 'p.name', 'p.house_block', 'p.house_number')
-        ->leftJoin('penghunis as p', 'km.donatur', '=', 'p.id_warga')
-        ->orderByDesc('created_at');
-        if ($donatur) {
-            $query->where('donatur', '=', $donatur);
-        }
-        if ($category) {
-            $query->where('cash_in_category', '=', $category);
-        }
-        if ($bulan) {
-            $query->where('cash_in_month', '=', $bulan);
-        }
-        if ($tahun) {
-            $query->where('cash_in_year', '=', $tahun);
-        }
-        if ($from || $to) {
-            $query->where('cash_in_date', [$from, $to]);
-        }
-        $data = $query->get();
-        $total = $data->sum('amount');
-        $pdf = Pdf::loadView('kas.mutasiKasMasukPdf', [
-            'nama'        => $nama,
-            'total'        => $total,
-            'data'          => $data,
-            'no'            => $no,
-        ])->setPaper('A4', 'landscape');
-        return $pdf->download('kas_masuk.pdf');
-    }
+    //     $query = DB::table('kas_masuks as km')
+    //     ->select('km.*', 'p.name', 'p.house_block', 'p.house_number')
+    //     ->leftJoin('penghunis as p', 'km.donatur', '=', 'p.id_warga')
+    //     ->orderByDesc('created_at');
+    //     if ($donatur) {
+    //         $query->where('donatur', '=', $donatur);
+    //     }
+    //     if ($category) {
+    //         $query->where('cash_in_category', '=', $category);
+    //     }
+    //     if ($bulan) {
+    //         $query->where('cash_in_month', '=', $bulan);
+    //     }
+    //     if ($tahun) {
+    //         $query->where('cash_in_year', '=', $tahun);
+    //     }
+    //     if ($from || $to) {
+    //         $query->where('cash_in_date', [$from, $to]);
+    //     }
+    //     $data = $query->get();
+    //     $total = $data->sum('amount');
+    //     $pdf = Pdf::loadView('kas.mutasiKasMasukPdf', [
+    //         'nama'        => $nama,
+    //         'total'        => $total,
+    //         'data'          => $data,
+    //         'no'            => $no,
+    //     ])->setPaper('A4', 'landscape');
+    //     return $pdf->download('kas_masuk.pdf');
+    // }
 
     public function rkKasMasuk()
     {
@@ -440,8 +517,49 @@ class KasController extends Controller
     }
 
 
-    public function listKasKeluar()
+    public function listKasKeluar(Request $request)
     {
+        $actionType = $request->input('action_type');
+        if($actionType == 'html'){
+            $category = request()->input('category');
+            $from = request()->input('from');
+            $to = request()->input('to');
+
+            $no = 1;
+            $query = DB::table('kas_keluars')->orderByDesc('created_at');
+
+            if ($category) {
+                $query->where('cash_out_category', '=', $category);
+            }
+            if ($from || $to) {
+                $query->whereBetween('transaction_date', [$from, $to]);
+            }
+            $data = $query->get();
+            return view('kas.listKasKeluar', [
+                'no'    => $no,
+                'data'  => $data,
+            ]);
+        } elseif($actionType == 'pdf'){
+            $category = request()->input('category');
+            $from = request()->input('from');
+            $to = request()->input('to');
+            $no = 1;
+            $query = DB::table('kas_keluars')->orderByDesc('created_at');
+            if ($category) {
+                $query->where('cash_out_category', '=', $category);
+            }
+            if ($from || $to) {
+                $query->whereBetween('transaction_date', [$from, $to]);
+            }
+            $data = $query->get();
+            $total = $data->sum('amount');
+            $pdf = Pdf::loadView('kas.mutasiKasKeluarPdf', [
+                    'total'        => $total,
+                    'data'          => $data,
+                    'no'            => $no,
+                ])->setPaper('A4', 'landscape');
+            return $pdf->download('kas_keluar.pdf');
+        }
         $category = request()->input('category');
         $from = request()->input('from');
         $to = request()->input('to');
@@ -462,33 +580,33 @@ class KasController extends Controller
         ]);
     }
 
-    public function printKasKeluar()
-    {
-        return view('kas.printKasKeluar');
-    }
+    // public function printKasKeluar()
+    // {
+    //     return view('kas.printKasKeluar');
+    // }
 
-    public function mutasiKasKeluarPdf()
-    {
-        $category = request()->input('category');
-        $from = request()->input('from');
-        $to = request()->input('to');
-        $no = 1;
-        $query = DB::table('kas_keluars')->orderByDesc('created_at');
-        if ($category) {
-            $query->where('cash_out_category', '=', $category);
-        }
-        if ($from || $to) {
-            $query->where('transaction_date', [$from, $to]);
-        }
-        $data = $query->get();
-        $total = $data->sum('amount');
-        $pdf = Pdf::loadView('kas.mutasiKasKeluarPdf', [
-            'total'        => $total,
-            'data'          => $data,
-            'no'            => $no,
-        ])->setPaper('A4', 'landscape');
-        return $pdf->download('kas_keluar.pdf');
-    }
+    // public function mutasiKasKeluarPdf()
+    // {
+    //     $category = request()->input('category');
+    //     $from = request()->input('from');
+    //     $to = request()->input('to');
+    //     $no = 1;
+    //     $query = DB::table('kas_keluars')->orderByDesc('created_at');
+    //     if ($category) {
+    //         $query->where('cash_out_category', '=', $category);
+    //     }
+    //     if ($from || $to) {
+    //         $query->where('transaction_date', [$from, $to]);
+    //     }
+    //     $data = $query->get();
+    //     $total = $data->sum('amount');
+    //     $pdf = Pdf::loadView('kas.mutasiKasKeluarPdf', [
+    //         'total'        => $total,
+    //         'data'          => $data,
+    //         'no'            => $no,
+    //     ])->setPaper('A4', 'landscape');
+    //     return $pdf->download('kas_keluar.pdf');
+    // }
 
     public function rkKasKeluar()
     {

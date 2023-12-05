@@ -58,9 +58,11 @@ Kas Keluar
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 col-12">
+                        <div class="col-md-12 col-12">
                             <div class="form-group">
-                                <input type="submit" class="btn btn-primary" name="submit" value="Cari">
+                                <input type="hidden" name="action_type" id="action_type" value="Cari">
+                                <input type="submit" class="btn btn-primary" onclick="setActionType('html')" value="Tampilkan Data">
+                                <input type="submit" class="btn btn-warning" onclick="setActionType('pdf')" value="Download PDF">
                             </div>
                         </div>
                     </div>
@@ -136,5 +138,10 @@ Kas Keluar
         <!-- /.card -->
     </div><!-- /.container-fluid -->
 </section>
+<script>
+    function setActionType(type) {
+        document.getElementById('action_type').value = type;
+    }
+</script>
 <!-- /.content -->
 @endsection

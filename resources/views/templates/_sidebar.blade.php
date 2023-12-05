@@ -135,14 +135,14 @@
                                  </p>
                              </a>
                          </li>
-                         <li class="nav-item">
+                         <!-- <li class="nav-item">
                              <a href="{{ route('printKasMasuk') }}" class="nav-link">
                                  <i class="nav-icon far fa-circle text-success"></i>
                                  <p>
                                      Cetak Kas Masuk
                                  </p>
                              </a>
-                         </li>
+                         </li> -->
                          <li class="nav-item">
                              <a href="{{ route('listKasKeluar') }}" class="nav-link">
                                  <i class="nav-icon far fa-circle text-danger"></i>
@@ -151,14 +151,14 @@
                                  </p>
                              </a>
                          </li>
-                         <li class="nav-item">
+                         <!-- <li class="nav-item">
                              <a href="{{ route('printKasKeluar') }}" class="nav-link">
                                  <i class="nav-icon far fa-circle text-danger"></i>
                                  <p>
                                      Cetak Kas Keluar
                                  </p>
                              </a>
-                         </li>
+                         </li> -->
                      </ul>
                  </li>
                  <li class="nav-item">

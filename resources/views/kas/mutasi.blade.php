@@ -173,7 +173,6 @@ Mutasi Kas
 <script>
     function setActionType(type) {
         document.getElementById('action_type').value = type;
-        console.log(type)
     }
 </script>
 <!-- /.content -->
