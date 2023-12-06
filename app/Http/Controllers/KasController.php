@@ -471,6 +471,7 @@ class KasController extends Controller
                 'cash_in_category'          => $request['cash_in_category'],
                 'cash_in_methode'           => $request['cash_in_methode'],
                 'amount'                    => $request['amount'],
+                'cash_in_date'              => date(now()),
                 'cash_in_year'              => $request['cash_in_year'],
                 'cash_in_attachment'        => $request['cash_in_attachment'],
                 'cash_in_note'              => $request['cash_in_note'],
